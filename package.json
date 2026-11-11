@@ -1,0 +1,36 @@
+{
+  "name": "pixie-companion",
+  "productName": "Pixie",
+  "version": "1.0.0",
+  "description": "Pixie - a sweet, spicy, cute anime desktop companion that sees your gestures, hears your voice and runs agentic tasks.",
+  "main": "main.js",
+  "author": "Pixie",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "node scripts/fetch-vision.js",
+    "start": "electron .",
+    "dist": "electron-builder --win nsis --x64 --publish never"
+  },
+  "dependencies": {
+    "@mediapipe/tasks-vision": "0.10.14"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.pixie.companion",
+    "productName": "Pixie",
+    "directories": { "output": "dist", "buildResources": "build" },
+    "files": ["main.js", "preload.js", "renderer/**/*", "assets/**/*", "package.json"],
+    "win": { "target": [{ "target": "nsis", "arch": ["x64"] }], "icon": "build/icon.ico" },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Pixie",
+      "artifactName": "Pixie-Setup-${version}.${ext}"
+    }
+  }
+}
